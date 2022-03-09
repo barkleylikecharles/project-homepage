@@ -14,7 +14,7 @@
 <!-- Container for  -->
 <div class="flex-row justify-space-between">
     <div class ="col-12 col-md-4">
-      <div class = "card">
+      <div class = "card-1">
         <h3 class = "card-header text-uppercase">Search By City Name</h3>
         <form  id="weather-form" class="card-body">
           <label class="form-label" for="username">City</label>
@@ -23,19 +23,24 @@
         </form>
       </div>
     </div> 
+
+    <div class="col-12 col-md-8">
+        <h2 class="subtitle">Today's Weather <span id="repo-search-term"></span></h2>
+        <div id="weather-container" class="list-group"></div>
+      </div>
 </div>
 
 <div class="flex-row justify-space-between">
     <div class ="col-12 col-md-4">
       <div class = "card">
         <h3 class = "card-header text-uppercase">Top News Stories</h3>
-      </div>
+      </div id="card-2">
     </div> 
 </div>
 
 <div class="flex-row justify-space-between">
     <div class ="col-12 col-md-4">
-      <div class = "card">
+      <div class = "card-3">
         <h3 class = "card-header text-uppercase">To Do List</h3>
         <form  id="task-form" class="card-body">
           <label class="form-label" for="username">Task</label>
@@ -47,6 +52,6 @@
 </div>
 
 
-    
+  <script src="./assets/script.js"></script>
 </body>
 </html>
