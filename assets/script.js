@@ -19,13 +19,40 @@ var weatherApiKey = "861519be9cbc12d19fad9bfb53a63d3e";
 var getCityWeather = function(city) {
     var urlCurrent = "https://api.openweathermap.org/data/2.5/weather?q=" + citySearchInput + "&Appid=" + weatherApiKey + "&units=imperial";
 
-    fetch(urlCurrent).then(function(response) {
-        if (response.ok) {
-            response.json().then(function(data) {
-                console.log(data, city)
-            })
-        }
-    })
+    fetch(urlCurrent)
+        .then(response => response.json()) 
+        .then((data) => {
+            console.log(data.results);
+            displayWeather(weather.results)
+        });
+var temp, humidity, speed;
+
+function displayWeather(data) {
+    weather = data;
+    
+    for(var i = 0; i < 5; i ++){
+        temp = weather[i].temp;
+        humidity = weather[i].humidity;
+        speed = weather[i].speed;
+        console.log(weather[i].temp);
+
+        createCard1(temp, humidity, speed);
+    }
+}
+
+function createCard1(t, h, s){
+    var card = document.createElement("div");
+    // card.innerHTML = "<h2>"+t+"</h2><p>"+a+"</p>";
+    card.innerHTML = `
+    <h2>${t}</h2>
+    <p>${h}</p>
+    <p><a href="${s}" target="_blank">${u}</a></p>
+    `;
+
+    document.getElementById('card-1').appendChild(card);
+
+}
+
 }
 
 
@@ -63,7 +90,7 @@ function createCard(t, a, u){
     var card = document.createElement("div");
     // card.innerHTML = "<h2>"+t+"</h2><p>"+a+"</p>";
     card.innerHTML = `
-    <h2>${t}</h2>
+    <h4>${t}</h4>
     <p>${a}</p>
     <p><a href="${u}" target="_blank">${u}</a></p>
     `;
