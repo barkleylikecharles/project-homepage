@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homepage</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
     <header class="hero">
@@ -12,8 +14,12 @@
     <p>The first and final stop for productive days</p>
 </header>
 <!-- Container for  -->
-<div class="flex-row justify-space-between">
-    <div class ="col-12 col-md-4">
+<!-- <div class="flex-row justify-space-between">
+    <div class ="col-4 col-md-4"> -->
+
+ <div class="container-fluid">
+     <div class="row">
+      <div class = col-sm-4>
       <div class = "card-1">
         <h3 class = "card-header text-uppercase">Search By City Name</h3>
         <form  id="weather-form" class="card-body">
@@ -21,34 +27,32 @@
           <input name="username" id="username" type="text" autofocus="true" class="form-input" />
           <button type="submit" class="btn">Get Weather</button> 
         </form>
+        <div>
+            <h2 class="subtitle">Today's Weather <span id="repo-search-term"></span></h2>
+            <div id="weather-container" class="list-group"></div>
+          </div>
       </div>
     </div> 
+    
+     <div class = col-sm-4>
+            <div class = "card" id="card-2">
+                <h3 class = "card-header text-uppercase">Top News Stories</h3>
+            </div>
+        </div> 
 
-    <div class="col-12 col-md-8">
-        <h2 class="subtitle">Today's Weather <span id="repo-search-term"></span></h2>
-        <div id="weather-container" class="list-group"></div>
-      </div>
-</div>
 
-<div class="flex-row justify-space-between">
-    <div class ="col-12 col-md-4">
-      <div class = "card">
-        <h3 class = "card-header text-uppercase">Top News Stories</h3>
-      </div id="card-2">
-    </div> 
-</div>
-
-<div class="flex-row justify-space-between">
-    <div class ="col-12 col-md-4">
-      <div class = "card-3">
-        <h3 class = "card-header text-uppercase">To Do List</h3>
-        <form  id="task-form" class="card-body">
-          <label class="form-label" for="username">Task</label>
-          <input name="task" id="task" type="text" autofocus="true" class="form-input" />
-          <button type="submit" class="btn">Save to TO-DO List</button> 
-        </form>
-      </div>
-    </div> 
+       
+         <div class = col-sm-4>
+            <div class = "card" id="card-2">
+                <h3 class = "card-header text-uppercase">To Do List</h3>
+                <form  id="task-form" class="card-body">
+                <label class="form-label" for="username">Task</label>
+                <input name="task" id="task" type="text" autofocus="true" class="form-input" />
+                <button type="submit" class="btn">Save to TO-DO List</button> 
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 
