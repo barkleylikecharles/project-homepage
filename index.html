@@ -25,14 +25,15 @@
 
  <!-- <div class="container-fluid">
      <div class="row"> -->
-      <div class = "grid grid-cols-3 gap-2" id="columns">
+      <div class = "grid grid-cols-1 gap-5 md:grid-cols-3" id="columns">
 
         <div class="01">
           <div class ="card">
-          <div class = "bg-sky-500">
-            <p class="text-center font-bold dark:text-white text-2xl text-slate-400">Weather Update</p>
+          <div class = "bg-sky-100">
+            <p class="text-center font-bold dark:text-white text-4xl text-slate-400">Weather Update</p>
             <p class = "text-center font-bold dark:text-white text-xl text-slate-500">Search By City Name</p>
-            <form  id="city-form" class="card-body"><label class="cityname" id="cityname" for="username">City</label><input name="cityname" id="cityname" type="text" autofocus="true" class="form-input" /><button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" id="save-task" type="submit">Check Weather</button></form>
+            <form  id="city-form" class="card-body"><label class="cityname" id="cityname" for="username"> City</label><input name="cityname" id="cityname" type="text" autofocus="true" class="form-input" />
+              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" id="save-task" type="submit">Check Weather</button></form>
               <h2 class="subtitle">Today's Weather <span id="repo-search-term"></span></h2>
               <div id="weather-data-container" class="list-group"></div>
           </div>
@@ -40,18 +41,19 @@
         </div>
 
         <div class="02">
-          <div class="card" id="card-2">
-          <div class = "bg-sky-700">
-            <p class="text-center font-bold dark:text-white text-5xl text-slate-400">Top News Stories</p>
+          <div class="card">
+            <div class = "bg-sky-700">
+              <p class="text-center font-bold dark:text-white text-5xl text-slate-400">Top News Stories</p>
+            </div>
+            <div class="bg-sky-100" id="card-2"></div>
           </div>
-          </div>
-          </div>
+        </div>
 
 
        
          <!-- <div class = col-sm-4> -->
            <div class="03">
-            <div class = "card" id="card-2">
+            <div class = "card" id="card-3">
            <div class ="bg-sky-900">
                     <div class="text-center font-bold dark:text-white text-5xl text-slate-400">
                         <form id="task-form">
