@@ -6,58 +6,96 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homepage</title>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="./assets/styles.css">
 </head>
 <body>
-    <header class="hero" class="container">
-        <div class="text-center text-white-50 bg-dark">
-    
-    <h1 class="app-title"><i class="fab fa-homepage"></i>Dominate Your Day</h1>
-    <h3>The first and final stop for productive days</h3>
-    </div>
-</header>
+    <header class="bg-neutral-400">
+        <div>
+          <!-- <a href="https://www.vecteezy.com/vector-art/2335868-productivity-vector-icon"</a -->
+          <p class="text-left font-bold dark:text-white text-6xl dark:text-gray">Dominate Your Day</p>
+        <!-- <h1 class="app-title"><i class="fab fa-homepage"></i>Dominate Your Day</h1> -->
+          <p class="text-right font-bold dark:text-white text-xl dark:text-gray">The first and final stop for productive days</p>
+      </div>
+    </header>
 <!-- Container for  -->
 <!-- <div class="flex-row justify-space-between">
     <div class ="col-4 col-md-4"> -->
 
- <div class="container-fluid">
-     <div class="row">
-      <div class = col-sm-4>
-      <div class = "card card-1">
-        <h3 class = "card-header text-uppercase text-center bg-info text-white">Search By City Name</h3>
-        <form  id="weather-form" class="card-body">
-          <label class="form-label" for="username">City</label>
-          <input name="username" id="username" type="text" autofocus="true" class="form-input" />
-          <button class="btn btn-dark" type="submit" class="btn">Get Weather</button> 
-        </form>
-        <div>
-            <h2 class="subtitle">Today's Weather <span id="repo-search-term"></span></h2>
-            <div id="weather-container" class="list-group"></div>
+ <!-- <div class="container-fluid">
+     <div class="row"> -->
+      <div class = "grid grid-cols-3 gap-2" id="columns">
+
+        <div class="01">
+          <div class ="card">
+          <div class = "bg-sky-500">
+            <p class="text-center font-bold dark:text-white text-2xl text-slate-400">Weather Update</p>
+            <p class = "text-center font-bold dark:text-white text-xl text-slate-500">Search By City Name</p>
+            <form  id="city-form" class="card-body"><label class="cityname" id="cityname" for="username">City</label><input name="cityname" id="cityname" type="text" autofocus="true" class="form-input" /><button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" id="save-task" type="submit">Check Weather</button></form>
+              <h2 class="subtitle">Today's Weather <span id="repo-search-term"></span></h2>
+              <div id="weather-data-container" class="list-group"></div>
           </div>
-      </div>
-    </div> 
-    
-     <div class = col-sm-4>
-            <div class = "card" id="card-2">
-                <h3 class = "card-header text-uppercase text-center bg-light">Top News Stories</h3>
-            </div>
-        </div> 
+          </div>
+        </div>
+
+        <div class="02">
+          <div class="card" id="card-2">
+          <div class = "bg-sky-700">
+            <p class="text-center font-bold dark:text-white text-5xl text-slate-400">Top News Stories</p>
+          </div>
+          </div>
+          </div>
 
 
        
-         <div class = col-sm-4>
+         <!-- <div class = col-sm-4> -->
+           <div class="03">
             <div class = "card" id="card-2">
-                <h3 class = "card-header text-uppercase bg-info text-white">To Do List</h3>
-                <form  id="task-form" class="card-body">
-                <label class="form-label" for="username">Task</label>
-                <input name="task" id="task" type="text" autofocus="true" class="form-input" />
-                <button class= "btn btn-dark" type="submit" class="btn">Save to TO-DO List</button> 
-                </form>
+           <div class ="bg-sky-900">
+                    <div class="text-center font-bold dark:text-white text-5xl text-slate-400">
+                        <form id="task-form">
+                            <p class = "text-center font-bold dark:text-white text-5xl text-slate-400">To Do List</p>
+                            <form  id="task-form" class="card-body">
+                         <!-- <form id="task-form"> -->
+                    <div class="form-group">
+                      <input type="text" name="task-name" placeholder="Enter Task Name" />
+                    </div>
+                    <div class="form-group">
+                      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" id="save-task" type="submit">Add Task</button>
+                      <!-- </button>
+                      <button class="btn btn-dark" id="save-task" type="submit">Add Task</button> -->
+                    </div>
+                  </form>
+                    </div>
+                <div class="page-content" id="page-content">
+                  <!-- Tasks To Do -->
+                  <section class="task-list-wrapper">
+                    <h2 class="list-title text-uppercase bg-info text-white">Tasks To Do</h2>
+                    <ul class="task-list" id="tasks-to-do"></ul>
+                  </section>
+              
+                  <!-- Tasks In Progress -->
+                  <section class="task-list-wrapper">
+                    <h2 class="list-title text-uppercase bg-info text-white">Tasks In Progress</h2>
+                    <ul class="task-list" id="tasks-in-progress"></ul>
+                  </section>
+              
+                  <!-- Tasks Completed -->
+                  <section class="task-list-wrapper">
+                    <h2 class="list-title text-uppercase bg-info text-white">Tasks Completed</h2>
+                    <ul class="task-list" id="tasks-completed"></ul>
+                  </section>
+                </div>
+              </div>
+              </div>
+              
+                <!-- <script src="./assets/js/script.js"></script>
+            </body> -->
+            
             </div>
         </div>
-    </div>
-</div>
+
 
 
   <script src="./assets/script.js"></script>

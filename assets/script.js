@@ -42,7 +42,6 @@ function displayWeather(data) {
 
 function createCard1(t, h, s){
     var card = document.createElement("div");
-    // card.innerHTML = "<h2>"+t+"</h2><p>"+a+"</p>";
     card.innerHTML = `
     <h2>${t}</h2>
     <p>${h}</p>
@@ -88,7 +87,6 @@ function displayNews(data) {
 
 function createCard(t, a, u){
     var card = document.createElement("div");
-    // card.innerHTML = "<h2>"+t+"</h2><p>"+a+"</p>";
     card.innerHTML = `
     <h4>${t}</h4>
     <p>${a}</p>
@@ -98,56 +96,380 @@ function createCard(t, a, u){
     document.getElementById('card-2').appendChild(card);
 
 }
-// var displayNews = function() {
-//     for (i=0, )
-// }
+
+var taskIdCounter = 0;
+
+var formEl = document.querySelector("#task-form");
+var tasksToDoEl = document.querySelector("#tasks-to-do");
+var tasksInProgressEl = document.querySelector("#tasks-in-progress");
+var tasksCompletedEl = document.querySelector("#tasks-completed");
+var pageContentEl = document.querySelector("#page-content");
+
+// create array to hold tasks for saving
+var tasks = [];
+
+var taskFormHandler = function (event) {
+  event.preventDefault();
+  var taskNameInput = document.querySelector("input[name='task-name']").value;
+ 
+
+  // check if inputs are empty (validate)
+  if (!taskNameInput) {
+    alert("You need to fill out the task form!");
+    return false;
+  }
+
+  // reset form fields for next task to be entered
+  document.querySelector("input[name='task-name']").value = "";
+  
+
+  // check if task is new or one being edited by seeing if it has a data-task-id attribute
+  var isEdit = formEl.hasAttribute("data-task-id");
+
+  if (isEdit) {
+    var taskId = formEl.getAttribute("data-task-id");
+    completeEditTask(taskNameInput,);
+  } else {
+    var taskDataObj = {
+      name: taskNameInput,
+      status: "to do",
+    };
+
+    createTaskEl(taskDataObj);
+  }
+};
+
+var createTaskEl = function(taskDataObj) {
+  var listItemEl = document.createElement("li");
+  listItemEl.className = "task-item";
+  listItemEl.setAttribute("data-task-id", taskIdCounter);
+
+  var taskInfoEl = document.createElement("div");
+  taskInfoEl.className = "task-info";
+  taskInfoEl.innerHTML =
+    "<h3 class='task-name'>" + taskDataObj.name + "</span>";
+  listItemEl.appendChild(taskInfoEl);
+
+  var taskActionsEl = createTaskActions(taskIdCounter);
+  listItemEl.appendChild(taskActionsEl);
+
+  switch (taskDataObj.status) {
+    case "to do":
+      taskActionsEl.querySelector("select[name='status-change']").selectedIndex = 0;
+      tasksToDoEl.append(listItemEl);
+      break;
+    case "in progress":
+      taskActionsEl.querySelector("select[name='status-change']").selectedIndex = 1;
+      tasksInProgressEl.append(listItemEl);
+      break;
+    case "completed":
+      taskActionsEl.querySelector("select[name='status-change']").selectedIndex = 2;
+      tasksCompletedEl.append(listItemEl);
+      break;
+    default:
+      console.log("Something went wrong!");
+  }
+
+  // save task as an object with name, type, status, and id properties then push it into tasks array
+  taskDataObj.id = taskIdCounter;
+
+  tasks.push(taskDataObj);
+
+  // save tasks to localStorage
+  saveTasks();
+
+  // increase task counter for next unique task id
+  taskIdCounter++;
+};
+
+var createTaskActions = function (taskId) {
+  // create container to hold elements
+  var actionContainerEl = document.createElement("div");
+  actionContainerEl.className = "task-actions";
+
+  // create edit button
+ 
+  // create delete button
+  var deleteButtonEl = document.createElement("button");
+  deleteButtonEl.textContent = "Delete";
+  deleteButtonEl.className = "btn btn-dark delete-btn";
+  deleteButtonEl.setAttribute("data-task-id", taskId);
+  actionContainerEl.appendChild(deleteButtonEl);
+  // create change status dropdown
+  var statusSelectEl = document.createElement("select");
+  statusSelectEl.setAttribute("name", "status-change");
+  statusSelectEl.setAttribute("data-task-id", taskId);
+  statusSelectEl.className = "select-status";
+  actionContainerEl.appendChild(statusSelectEl);
+  // create status options
+  var statusChoices = ["To Do", "In Progress", "Completed"];
+
+  for (var i = 0; i < statusChoices.length; i++) {
+    // create option element
+    var statusOptionEl = document.createElement("option");
+    statusOptionEl.setAttribute("value", statusChoices[i]);
+    statusOptionEl.textContent = statusChoices[i];
+
+    // append to select
+    statusSelectEl.appendChild(statusOptionEl);
+  }
+
+  return actionContainerEl;
+};
+
+var completeEditTask = function (taskName, taskType, taskId) {
+  // find task list item with taskId value
+  var taskSelected = document.querySelector(
+    ".task-item[data-task-id='" + taskId + "']"
+  );
+
+  // set new values
+  taskSelected.querySelector("h3.task-name").textContent = taskName;
+  
+  // loop through tasks array and task object with new content
+  for (var i = 0; i < tasks.length; i++) {
+    if (tasks[i].id === parseInt(taskId)) {
+      tasks[i].name = taskName;
+      tasks[i].type = taskType;
+    }
+  }
+
+  alert("Task Updated!");
+
+  // remove data attribute from form
+  formEl.removeAttribute("data-task-id");
+  // update formEl button to go back to saying "Add Task" instead of "Edit Task"
+  formEl.querySelector("#save-task").textContent = "Add Task";
+  // save tasks to localStorage
+  saveTasks();
+};
+
+var taskButtonHandler = function (event) {
+  // get target element from event
+  var targetEl = event.target;
+
+  if (targetEl.matches(".edit-btn")) {
+    console.log("edit", targetEl);
+    var taskId = targetEl.getAttribute("data-task-id");
+    editTask(taskId);
+  } else if (targetEl.matches(".delete-btn")) {
+    console.log("delete", targetEl);
+    var taskId = targetEl.getAttribute("data-task-id");
+    deleteTask(taskId);
+  }
+};
+
+var taskStatusChangeHandler = function (event) {
+  console.log(event.target.value);
+
+  // find task list item based on event.target's data-task-id attribute
+  var taskId = event.target.getAttribute("data-task-id");
+
+  var taskSelected = document.querySelector(
+    ".task-item[data-task-id='" + taskId + "']"
+  );
+
+  // convert value to lower case
+  var statusValue = event.target.value.toLowerCase();
+
+  if (statusValue === "to do") {
+    tasksToDoEl.appendChild(taskSelected);
+  } else if (statusValue === "in progress") {
+    tasksInProgressEl.appendChild(taskSelected);
+  } else if (statusValue === "completed") {
+    tasksCompletedEl.appendChild(taskSelected);
+  }
+
+  // update task's in tasks array
+  for (var i = 0; i < tasks.length; i++) {
+    if (tasks[i].id === parseInt(taskId)) {
+      tasks[i].status = statusValue;
+    }
+  }
+
+  // save to localStorage
+  saveTasks();
+};
+
+var editTask = function (taskId) {
+  console.log(taskId);
+
+  // get task list item element
+  var taskSelected = document.querySelector(
+    ".task-item[data-task-id='" + taskId + "']"
+  );
+
+  // get content from task name and type
+  var taskName = taskSelected.querySelector("h3.task-name").textContent;
+  console.log(taskName);
+
+ 
+
+  // write values of taskName and taskType to form to be edited
+  document.querySelector("input[name='task-name']").value = taskName;
+  
+  // set data attribute to the form with a value of the task's id so it knows which one is being edited
+  formEl.setAttribute("data-task-id", taskId);
+  // update form's button to reflect editing a task rather than creating a new one
+  formEl.querySelector("#save-task").textContent = "Save Task";
+};
+
+var deleteTask = function (taskId) {
+  console.log(taskId);
+  // find task list element with taskId value and remove it
+  var taskSelected = document.querySelector(
+    ".task-item[data-task-id='" + taskId + "']"
+  );
+  taskSelected.remove();
+
+  // create new array to hold updated list of tasks
+  var updatedTaskArr = [];
+
+  // loop through current tasks
+  for (var i = 0; i < tasks.length; i++) {
+    // if tasks[i].id doesn't match the value of taskId, let's keep that task and push it into the new array
+    if (tasks[i].id !== parseInt(taskId)) {
+      updatedTaskArr.push(tasks[i]);
+    }
+  }
+
+  // reassign tasks array to be the same as updatedTaskArr
+  tasks = updatedTaskArr;
+  saveTasks();
+};
+
+var saveTasks = function () {
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+};
+
+var loadTasks = function () {
+  var savedTasks = localStorage.getItem("tasks");
+  // if there are no tasks, set tasks to an empty array and return out of the function
+  if (!savedTasks) {
+    return false;
+  }
+  console.log("Saved tasks found!");
+  // else, load up saved tasks
+
+  // parse into array of objects
+  savedTasks = JSON.parse(savedTasks);
+
+  // loop through savedTasks array
+  for (var i = 0; i < savedTasks.length; i++) {
+    // pass each task object into the `createTaskEl()` function
+    createTaskEl(savedTasks[i]);
+  }
+};
+
+// Create a new task
+formEl.addEventListener("submit", taskFormHandler);
+
+// for edit and delete buttons
+pageContentEl.addEventListener("click", taskButtonHandler);
+
+// for changing the status
+pageContentEl.addEventListener("change", taskStatusChangeHandler);
+
+loadTasks();
+
+var cityFormEl = document.querySelector('#city-form');
+var nameInputEl = document.querySelector('#cityname');
+var weatherDataContainerEl = document.querySelector('#weather-data-container');
+var weatherDataSearchTerm = document.querySelector('#weather-data-search');
+
+var formSubmitHandler = function(event) {
+  // prevent page from refreshing
+  event.preventDefault();
+
+  // get value from input element
+  var cityname = nameInputEl.value.trim();
+
+  if (cityname) {
+    getCityNameWeatherData(cityname);
+
+    // clear old content
+    weatherDataContainerEl.textContent = '';
+    nameInputEl.value = '';
+  } else {
+    alert('Please enter a GitHub username');
+  }
+};
+
+var getCityNameWeatherData = function(city) {
+  // format the api url
+  var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q="+ city +"&appid=43307f36c133c1b4d80feb3644b2ab3e&units=imperial";
+
+  // make a get request to url
+  fetch(apiUrl)
+    .then(function(response) {
+      // request was successful
+      if (response.ok) {
+        console.log(response);
+        response.json().then(function(data) {
+          console.log(data); 
+          displayRepos(data, city);
+         
+        });
+
+      } else {
+        alert('Error: City Not Found');
+      }
+    
+    })
+    .catch(function(error) {
+      alert('Unable to connect to openweathermap');
+    });
+};
+
+var displayRepos = function(weatherData, searchTerm) {
+  //check if api returned any weather data
+  if (weatherData === 0) {
+    weatherDataContainerEl.textContent = 'No repositories found.';
+    return;
+  }
+
+  weatherDataSearchTerm.textContent = searchTerm;
+    // object returned from api for current weather
+    var temperatureValue = weatherData['main']['temp'];
+    var humidityValue= weatherData['main']['humidity'];
+    var speedValue = weatherData['wind']['speed'];
+    //var latitudeValue =  weatherData['coord']['lon'];
+    //var longitudeValue = weatherData['coord']['lat'] ;
+    //array object returned
+    var icon =  weatherData['weather'][0]['icon'];
+    //display current weather info as div block element
+    var currentWeatherInfo = " <div> Temperature: " + temperatureValue +"&#8457;" + "</div>"  
+                  + "<div> Wind Speed: " + speedValue + " MPH" + "</div>"
+                  + "<div> Humidity: " + humidityValue + " %" + "</div>";
+   
+    // create a container for weather data
+    var weatherDataEl = document.createElement('div');
+
+    weatherDataEl.classList = 'list-item flex-row justify-space-between align-center';
+    // create a span element to hold repository name
+    var titleEl = document.createElement('span');
+    //titleEl.textContent = repoNameTemp;
+    titleEl.innerHTML = currentWeatherInfo;
+    // append to container
+    weatherDataEl.appendChild(titleEl);
+
+   
+    // create a status element
+    var statusEl = document.createElement('span');
+    statusEl.classList = 'flex-row align-center';
+    
+      let imgIcon = document.createElement('img'); 
+      imgIcon.setAttribute('src', `https://openweathermap.org/img/wn/${icon}@2x.png`)
+  
+      statusEl.appendChild(imgIcon); 
+
+    // append to container
+    weatherDataEl.appendChild(statusEl);
+
+    // append container to the dom
+    weatherDataContainerEl.appendChild(weatherDataEl);
+  };
 
 
-// var tasks = {};
-
-// var createTask = function(taskText, taskDate, taskList) {
-//   // create elements that make up a task item
-//   var taskLi = $("<li>").addClass("list-group-item");
-//   var taskSpan = $("<span>")
-//     .addClass("badge badge-primary badge-pill")
-//     .text(taskDate);
-//   var taskP = $("<p>")
-//     .addClass("m-1")
-//     .text(taskText);
-
-//   // append span and p element to parent li
-//   taskLi.append(taskSpan, taskP);
-
-// // check due date
-// auditTask(taskLi);
-
-//   // append to ul list on the page
-//   $("#list-" + taskList).append(taskLi);
-// };
-
-// var loadTasks = function() {
-//   tasks = JSON.parse(localStorage.getItem("tasks"));
-
-//   // if nothing in localStorage, create a new object to track all task status arrays
-//   if (!tasks) {
-//     tasks = {
-//       toDo: [],
-//       inProgress: [],
-//       inReview: [],
-//       done: []
-//     };
-//   }
-
-//   // loop over object properties
-//   $.each(tasks, function(list, arr) {
-//     console.log(list, arr);
-//     // then loop over sub-array
-//     arr.forEach(function(task) {
-//       createTask(task.text, task.date, list);
-//     });
-//   });
-// };
-
-// var saveTasks = function() {
-//   localStorage.setItem("tasks", JSON.stringify(tasks));
-// };
+// add event listeners to forms
+cityFormEl.addEventListener('submit', formSubmitHandler);
