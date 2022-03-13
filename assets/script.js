@@ -54,8 +54,6 @@ function createCard1(t, h, s){
 
 }
 
-
-
 var news;
 var newsApiKey = '6trXJd0Eo4FqEF8nrJx7s62Sd6sVlKys'
 var queryURL = 'https://api.nytimes.com/svc/topstories/v2/home.json?api-key='+ newsApiKey
@@ -96,6 +94,7 @@ function createCard(t, a, u){
     document.getElementById('card-2').appendChild(card);
 
 }
+
 
 var taskIdCounter = 0;
 
