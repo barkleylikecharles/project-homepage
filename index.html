@@ -31,16 +31,22 @@
         <div class="01">
           <div class ="card">
           <div class = "bg-sky-100">
-            <h3 class = "card-header text-uppercase text-center bg-info text-white">Weather Dashbord</h3>
-            <p class="text-center font-bold dark:text-white text-4xl text-black">Weather Update</p>
-            <form  id="city-form" class="card-body">
-              <label class="cityname" id="cityname" for="username"></label>
-              <input name="cityname" id="cityname" type="text" autofocus="true" class="form-input text-3xl" placeholder="Enter City Name" />
-              <br>
-              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" id="save-city" type="submit">Search</button>
-            </form>
-              <h2 class="subtitle text-black text-3xl">Today's Weather <span id="repo-search-term"></span></h2>
-              <div id="weather-data-container" class="list-group"></div>
+            <h3 class = "card-header text-uppercase text-center bg-info text-4xl text-black">Weather Dashbord</h3>
+                        <div class="card"> 
+                          <form id="city-form" class="card-body">
+                            <label class="form-label" for="cityname"></label>
+                            <input name="cityname" id="cityname" type="text" autofocus="true" class="form-input text-2xl" placeholder="Hartford"/>
+                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full text-3xl">Search</button>
+                          </form>
+                        </div>
+                    
+                      <!-- render user request -->
+                      <div class="col-12 col-md-8">
+                        <h2 class="subtitle text-uppercase bg-info text-cyan-900 text-3xl">Current Weather Info for: <span id="weather-data-search"></span></h2>
+                        <div id="weather-data-container" class="list-group">
+                  
+                        </div>
+                      </div>
               
           </div>
           </div>
