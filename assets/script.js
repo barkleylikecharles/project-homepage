@@ -72,6 +72,8 @@ fetch(queryURL)
 
 var title, abstract, articleUrl;
 
+
+
 function displayNews(data) {
     news = data;
     
@@ -88,9 +90,9 @@ function displayNews(data) {
 function createCard(t, a, u){
     var card = document.createElement("div");
     card.innerHTML = `
-    <p>${t}</p>
+    <p>"${t}" target="strong" </p>
     <p>${a}</p>
-    <p><a href="${u}" target="_blank">${u}</a></p>
+    <p><a href="${u}" target="_blank">Read More</a></p>
     `;
 
     document.getElementById('card-2').appendChild(card);
