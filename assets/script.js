@@ -45,7 +45,7 @@ function createCard1(t, h, s){
     card.innerHTML = `
     <h2>${t}</h2>
     <p>${h}</p>
-    <p><a href="${s}" target="_blank">${u}</a></p>
+    <p><a href="${s}" target="_blank" class="text-xl text-red-500">READ MORE</a></p>
     `;
 
     document.getElementById('card-1').appendChild(card);
