@@ -88,7 +88,7 @@ function displayNews(data) {
 function createCard(t, a, u){
     var card = document.createElement("div");
     card.innerHTML = `
-    <h4>${t}</h4>
+    <p>${t}</p>
     <p>${a}</p>
     <p><a href="${u}" target="_blank">${u}</a></p>
     `;
@@ -371,6 +371,7 @@ pageContentEl.addEventListener("click", taskButtonHandler);
 pageContentEl.addEventListener("change", taskStatusChangeHandler);
 
 loadTasks();
+
 
 var cityFormEl = document.querySelector('#city-form');
 var nameInputEl = document.querySelector('#cityname');
