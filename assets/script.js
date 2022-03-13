@@ -44,7 +44,7 @@ function createCard1(t, h, s){
     var card = document.createElement("div");
     card.innerHTML = `
     <h2>${t}</h2>
-    <p>${h}</p>
+    <p><style${h}</p>
     <p><a href="${s}" target="_blank" class="text-xl text-red-500">READ MORE</a></p>
     `;
 
