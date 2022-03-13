@@ -30,10 +30,9 @@
             <h2 class="subtitle">Search By City Name <span id="repo-search-term"></span></h2>
             <div id="weather-container" class="list-group"></div>
           </div>
-        <body>
-            <body class="flex-column min-100-vh">
+            <div class="flex-column min-100-vh">
                 <div class="flex-row justify-space-between">
-                    <div class="col-12 col-md-4">
+                    <div class="col-10 col-md-9">
                     <!-- prompt user to enter request -->
                       <div class="card">
                         <form id="city-form" class="card-body">
@@ -44,7 +43,7 @@
                       </div>
                     </div>
                     <!-- render user request -->
-                    <div class="col-12 col-md-8">
+                    <div class="col-12 col-md-100">
                       <h2 class="subtitle text-uppercase bg-info text-white">Current Weather Info for: <span id="weather-data-search"></span></h2>
                       <div id="weather-data-container" class="list-group">
                 
@@ -52,7 +51,7 @@
                     </div>
                   </div>
         <script src="./assets/weather.js"></script> 
-        </body>
+        </div>
       </div>
     </div> 
     
@@ -66,7 +65,7 @@
        
          <div class = col-sm-4>
             <div class = "card" id="card-2">
-              <body>
+              <div>
                     <div class="task-list-wrapper">
                         <form id="task-form">
                             <h3 class = "card-header text-uppercase bg-info text-white">To Do List</h3>
@@ -74,8 +73,6 @@
                   <form id="task-form">
                     <div class="form-group">
                       <input type="text" name="task-name" placeholder="Enter Task Name" />
-                    </div>
-                    <div class="form-group">
                       <button class="btn btn-dark" id="save-task" type="submit">Add Task</button>
                     </div>
                   </form>
@@ -101,7 +98,7 @@
                 </div>
               
                 <script src="./assets/js/script.js"></script>
-            </body>
+            </div>
             
             </div>
         </div>
