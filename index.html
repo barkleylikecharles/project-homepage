@@ -25,16 +25,33 @@
      <div class="row">
       <div class = col-sm-4>
       <div class = "card card-1">
-        <h3 class = "card-header text-uppercase text-center bg-info text-white">Search By City Name</h3>
-        <form  id="weather-form" class="card-body">
-          <label class="form-label" for="username">City</label>
-          <input name="username" id="username" type="text" autofocus="true" class="form-input" />
-          <button class="btn btn-dark" type="submit" class="btn">Get Weather</button> 
-        </form>
+        <h3 class = "card-header text-uppercase text-center bg-info text-white">Weather Dashbord</h3>
         <div>
-            <h2 class="subtitle">Today's Weather <span id="repo-search-term"></span></h2>
+            <h2 class="subtitle">Search By City Name <span id="repo-search-term"></span></h2>
             <div id="weather-container" class="list-group"></div>
           </div>
+            <div class="flex-column min-100-vh">
+                <div class="flex-row justify-space-between">
+                    <div class="col-10 col-md-9">
+                    <!-- prompt user to enter request -->
+                      <div class="card">
+                        <form id="city-form" class="card-body">
+                          <label class="form-label" for="cityname"></label>
+                          <input name="cityname" id="cityname" type="text" autofocus="true" class="form-input" placeholder="Hartford"/>
+                          <button type="submit" class="btn btn-dark">Search</button>
+                        </form>
+                      </div>
+                    </div>
+                    <!-- render user request -->
+                    <div class="col-12 col-md-100">
+                      <h2 class="subtitle text-uppercase bg-info text-white">Current Weather Info for: <span id="weather-data-search"></span></h2>
+                      <div id="weather-data-container" class="list-group">
+                
+                      </div>
+                    </div>
+                  </div>
+        <script src="./assets/weather.js"></script> 
+        </div>
       </div>
     </div> 
     
@@ -48,7 +65,7 @@
        
          <div class = col-sm-4>
             <div class = "card" id="card-2">
-              <body>
+              <div>
                     <div class="task-list-wrapper">
                         <form id="task-form">
                             <h3 class = "card-header text-uppercase bg-info text-white">To Do List</h3>
@@ -56,8 +73,6 @@
                   <form id="task-form">
                     <div class="form-group">
                       <input type="text" name="task-name" placeholder="Enter Task Name" />
-                    </div>
-                    <div class="form-group">
                       <button class="btn btn-dark" id="save-task" type="submit">Add Task</button>
                     </div>
                   </form>
@@ -83,7 +98,7 @@
                 </div>
               
                 <script src="./assets/js/script.js"></script>
-            </body>
+            </div>
             
             </div>
         </div>
